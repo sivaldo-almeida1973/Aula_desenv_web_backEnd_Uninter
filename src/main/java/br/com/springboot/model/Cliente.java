@@ -26,7 +26,7 @@ public class Cliente {
 	@Column(length = 14)
 	private String cpf;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Column(name= "data_nascimento", columnDefinition = "DATE")
+	@Column(name= "dataDeNascimento", columnDefinition = "DATE")
 	private LocalDate dataDeNascimento;
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
@@ -93,6 +93,10 @@ public class Cliente {
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Cliente() {
+		this.ativo = true;
 	}
 	
 	
