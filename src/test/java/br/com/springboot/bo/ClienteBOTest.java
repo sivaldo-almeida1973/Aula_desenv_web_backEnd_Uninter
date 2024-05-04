@@ -15,7 +15,6 @@ import br.com.springboot.model.Sexo;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
-
 public class ClienteBOTest {
 	@Autowired
 	private ClienteBO bo;
