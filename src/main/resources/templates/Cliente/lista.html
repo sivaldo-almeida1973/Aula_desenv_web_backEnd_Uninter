@@ -31,11 +31,17 @@
 		            <td th:text="${#temporals.format(cliente.dataDeNascimento, 'dd/MM/yyyy')}"></td>
 		            <td th:text="${cliente.cpf}"></td>
 		            <td>
-		            	<a class="btn btn-sm btn-secondary" th:href="@{/clientes/edita/{id}(id=${cliente.id})}">Editar</a>
+		            	<a class="btn btn-sm btn-secondary"
+		            	 th:href="@{/clientes/edita/{id}(id=${cliente.id})}">Editar</a>
 		            </td>
 		            <td>
-		            	<a class="btn btn-sm btn-secondary" th:if="${cliente.ativo == false}" th:href="@{/clientes/ativa/{id}(id=${cliente.id})}">Ativar</a>
-		            	<a class="btn btn-sm btn-secondary" th:unless="${cliente.ativo == false}" th:href="@{/clientes/inativa/{id}(id=${cliente.id})}">Inativar</a>
+		            	<a th:href="@{/clientes/ativa/{id}(id=${cliente.id})}"
+			            	class="btn btn-sm btn-secondary" 
+			            	th:if="${cliente.ativo == true}">Ativar</a>
+		            	
+		            	<a th:href="@{/clientes/inativa/{id}(id=${cliente.id})}" 
+			            	class="btn btn-sm btn-secondary" 
+			            	th:unless="${cliente.ativo == false}">Inativar</a>
 		            </td>
 		       </tr>
 		     </tbody>
