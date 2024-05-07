@@ -1,6 +1,7 @@
 package br.com.springboot.bo;
 import java.time.LocalDate;
 
+
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -12,10 +13,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import br.com.springboot.model.Cliente;
 import br.com.springboot.model.Sexo;
+
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 public class ClienteBOTest {
+	
 	@Autowired
 	private ClienteBO bo;
 	

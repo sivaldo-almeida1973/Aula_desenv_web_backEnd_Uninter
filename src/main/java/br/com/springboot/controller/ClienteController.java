@@ -27,16 +27,16 @@ public class ClienteController {
 		
 	}
 	
+
 	@RequestMapping(value = "" , method = RequestMethod.POST)
 	public String salva(@ModelAttribute Cliente cliente) {
 		bo.insere(cliente);
 		return "/cliente/formulario";
 	}
 	
-	//exibir tela de gerenciamento de cadastro do cliente
 	@RequestMapping(value = "" , method = RequestMethod.GET)//envia requisicao
 	public ModelAndView lista(ModelMap model) {
-		model.addAttribute("clientes" ,bo.lista());  
+		model.addAttribute("clientes" ,bo.lista());  //injetar dados na pagina http(model
 		return new ModelAndView("/cliente/lista", model);  //retorna pagina
 		
 	}
@@ -48,5 +48,19 @@ public class ClienteController {
 		
 	}
 	
+	
+
+	@RequestMapping(value = "/inativa/{id}" , method = RequestMethod.GET)//envia requisicao
+	public String inativa(@PathVariable("id") Long id) {
+		Cliente cliente = bo.pesquisaPeloId(id);  //injetar dados na pagina http(model
+		bo.inativa(cliente);
+		return "redirect:/clientes";  //retorna pagina
+		
+	}
+	
+	
+	
+
+
 
 }
