@@ -2,9 +2,6 @@ package br.com.springboot.model;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,45 +15,46 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+//import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
-@Table(name="clientes")
+@Table(name="produto")
 public class Cliente {
-	
-	// Atributos
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false, length = 50)
-	@NotBlank(message = "Informe o nome corretamente!")
-	@Size(min = 3, max = 50)	
+	@NotBlank(message = "informe o nome")
+	@Size(min = 3, max = 50)
 	private String nome;
 	
 	@Column(length = 14)
-	@CPF(message = "CPF Inválido!")
+	//@CPF(message = "invalido")
 	private String cpf;
 	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	@Column(nullable=false, name = "dataDeNascimento", columnDefinition = "DATE")
-    @NotNull(message = "Informe a data de nascimento!")
+	@Column(nullable=false, name="data_nascimento", columnDefinition="DATE")
+	@NotNull(message = "Informe a data de nascimento")
 	private LocalDate dataDeNascimento;
 	
 	@Enumerated(EnumType.STRING)
-	@NotNull(message = "Informe o sexo")
+	@NotNull(message = "informe o sexo")
 	private Sexo sexo;
 	
-	@Column(length = 14)
+	@Column(length = 15)
 	private String telefone;
-	@Column(length = 14)
+	
+	@Column(length = 15)
 	private String celular;
 	
 	@Column(length = 50)
 	@Email
 	private String email;
+	
 	private boolean ativo;
 
-
-	
 	public Cliente() {
 		this.ativo = true;
 	}
@@ -125,6 +123,22 @@ public class Cliente {
 		return ativo;
 	}
 	
-	
+	@Override
+	public String toString() {
+		String cliente = "";
+		cliente += "CLIENTE\n";
+		cliente += "-------------------------\n";
+		cliente += "ID.......: " + this.id + "\n";
+		cliente += "Nome.....: " + this.nome + "\n";
+		cliente += "CPF......: " + this.cpf + "\n";
+		cliente += "Data Nasc: " + this.dataDeNascimento + "\n";
+		cliente += "Sexo.....: " + (this.sexo == null ? "null" : this.sexo.getDescricao()) + "\n";
+		cliente += "Telefone.: " + this.telefone + "\n";
+		cliente += "Celular..: " + this.celular + "\n";
+		cliente += "Email....: " + this.email + "\n";
+		cliente += "Ativo....: " + (this.ativo ? "Sim" : "Não") + "\n";
+		return cliente;
+	}
 }
+
 
