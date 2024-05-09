@@ -15,6 +15,7 @@ public class ClienteDAO implements CRUD<Cliente, Long> {
 	
  @PersistenceContext
  private EntityManager entityManager;
+ 
  @Override
  public Cliente pesquisaPeloId(Long id) {
  return entityManager.find(Cliente.class, id);
