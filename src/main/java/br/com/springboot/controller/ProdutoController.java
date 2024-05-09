@@ -2,6 +2,9 @@ package br.com.springboot.controller;
 
 import java.util.Arrays;
 
+import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -15,13 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.springboot.bo.ProdutoBO;
 import br.com.springboot.model.Categoria;
 import br.com.springboot.model.Produto;
-import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/produtos")
 public class ProdutoController {
-	
-	//declarar obj de negocio
+
+	@Autowired
 	private ProdutoBO produtoBO;
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.GET)
@@ -32,17 +34,19 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping(value = "", method=RequestMethod.POST)
-	public String salva(@Valid @ModelAttribute Produto produto, BindingResult result, RedirectAttributes attr) {
-		if (result.hasErrors())
+	public String salva(@Valid @ModelAttribute Produto produto, BindingResult result, RedirectAttributes attr, ModelMap model) {
+		if (result.hasErrors()) {
+			model.addAttribute("categorias", Arrays.asList(Categoria.values()));
 			return "produto/formulario";
+		}
 		
 		if (produto.getId() == null) {
 			produtoBO.insere(produto);
-			attr.addFlashAttribute("feedback", "Produto foi cadastrado com sucesso");
+			attr.addFlashAttribute("feedback", "O produto foi cadastrado com sucesso");
 		}
 		else { 
 			produtoBO.atualiza(produto);
-			attr.addFlashAttribute("feedback", "Produto foi atualizado com sucesso");
+			attr.addFlashAttribute("feedback", "O produto foi atualizado com sucesso");
 		}
 		return "redirect:/produtos";
 	}
@@ -58,7 +62,6 @@ public class ProdutoController {
 		try {
 			model.addAttribute("produto", produtoBO.pesquisaPeloId(id));
 			model.addAttribute("categorias", Arrays.asList(Categoria.values()));
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,11 +70,10 @@ public class ProdutoController {
 	
 	@RequestMapping(value = "/inativa/{id}", method = RequestMethod.GET)
 	public String inativa(@PathVariable("id") Long id, RedirectAttributes attr) {
-		System.out.println(id);
 		try {
 			Produto produto = produtoBO.pesquisaPeloId(id); 
 			produtoBO.inativa(produto);
-			attr.addFlashAttribute("feedback", "Produto foi inativado com sucesso");
+			attr.addFlashAttribute("feedback", "O produto foi inativado com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,15 +82,14 @@ public class ProdutoController {
 	
 	@RequestMapping(value = "/ativa/{id}", method = RequestMethod.GET)
 	public String ativa(@PathVariable("id") Long id, RedirectAttributes attr) {
-		System.out.println(id);
 		try {
 			Produto produto = produtoBO.pesquisaPeloId(id); 
 			produtoBO.ativa(produto);
-			attr.addFlashAttribute("feedback", "Produto foi ativado com sucesso");
+			attr.addFlashAttribute("feedback", "O produto foi ativado com sucesso");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/produtos";
 	}
-
+	
 }
