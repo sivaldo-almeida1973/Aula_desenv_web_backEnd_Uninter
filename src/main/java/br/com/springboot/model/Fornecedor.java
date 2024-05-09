@@ -1,7 +1,5 @@
 package br.com.springboot.model;
 
-import org.hibernate.validator.constraints.br.CNPJ;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,7 +28,7 @@ public class Fornecedor {
 	private String razaoSocial;
 	
 	@Column(length = 18)
-	@CNPJ(message = "invalido")
+	//@CNPJ(message = "invalido")
 	private String cnpj;
 	
 	@Column(length = 14)
