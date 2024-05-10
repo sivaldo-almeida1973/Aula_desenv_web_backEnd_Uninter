@@ -67,11 +67,7 @@ public class NotaEntrada {
 		this.total = total;
 	}
 
-	public NotaEntrada pesquisaPeloId(Long id2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	
 	
 	
