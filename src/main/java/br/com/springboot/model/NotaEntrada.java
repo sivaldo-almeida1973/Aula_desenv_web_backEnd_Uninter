@@ -66,6 +66,13 @@ public class NotaEntrada {
 	public void setTotal(Float total) {
 		this.total = total;
 	}
+
+	public NotaEntrada pesquisaPeloId(Long id2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 	
 	
