@@ -13,7 +13,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.springboot.bo.FornecedorBO;
 import br.com.springboot.bo.NotaEntradaBO;
+import br.com.springboot.bo.ProdutoBO;
 import br.com.springboot.model.NotaEntrada;
+import br.com.springboot.model.NotaEntradaItem;
 import jakarta.validation.Valid;
 
 @Controller
@@ -26,36 +28,35 @@ public class NotaEntradaController {
 	@Autowired
 	private FornecedorBO fornecedorBO;
 	
+	@Autowired
+	private ProdutoBO produtoBO;
+	
 	@RequestMapping(value="/novo", method=RequestMethod.GET)
 	public ModelAndView novo(ModelMap model) {
-		//Long fornecedorId = null;
-		//model.addAttribute("fornecedorId", fornecedorId);
 		model.addAttribute("notaEntrada", new NotaEntrada());
 		model.addAttribute("fornecedores", fornecedorBO.lista());
 		return new ModelAndView("/nota-entrada/formulario", model);
-		
 	}
 	
 	//salvar no banco de dados
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public String salva(@Valid @ModelAttribute NotaEntrada notaEntrada,
-			BindingResult result, RedirectAttributes attr) {
-		//se existir algum erro , retorna para formulario nota-entrada
+			BindingResult result,
+			RedirectAttributes attr) {
+		
 		if (result.hasErrors()) {
 			return "/nota-entrada/formulario";
-		}//regra para salvar usuario
-		if (notaEntrada.getId() == null) {//se for nulo, isere na notaEntrada
-			notaEntradaBO.insere(notaEntrada);
-			attr.addFlashAttribute("feedback", "Os notas de entrada foram cadastradas com sucesso!");
-
-		}else {//se não for nula, atulaizar notaEntrada
-			notaEntradaBO.atualiza(notaEntrada);
-			attr.addFlashAttribute("feedback", "Os da nota de entrada foram atualizados com sucesso!");
 		}
 		
-		return "redirect:/nota-entrada";//assim que savar, volta para url nota-entrada
-	
+		if (notaEntrada.getId() == null) {
+			notaEntradaBO.insere(notaEntrada);
+			attr.addFlashAttribute("feedback", "A nota de entrada foi cadastrada com sucesso");
+		} else {
+			notaEntradaBO.atualiza(notaEntrada);
+			attr.addFlashAttribute("feedback", "Os dados da nota de entrada foram atualizados com sucesso");
+		}
 		
+		return "redirect:/nota-entrada";
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -65,6 +66,19 @@ public class NotaEntradaController {
 	}
 	
 	
+	
+	@RequestMapping(value="/{id}/item", method=RequestMethod.GET)
+	public ModelAndView produto(@PathVariable("id") Long id, ModelMap model) {
+		NotaEntradaItem nei = new NotaEntradaItem();
+		NotaEntrada ne = notaEntradaBO.pesquisaPeloId(id);
+		nei.setNotaEntrada(ne);
+		model.addAttribute("notaEntradaItem", nei);
+		model.addAttribute("produtos", produtoBO.lista());
+		return new  ModelAndView("nota-entrada-item/formulario", model);
+		
+		
+	}
+
 	
 
 }
