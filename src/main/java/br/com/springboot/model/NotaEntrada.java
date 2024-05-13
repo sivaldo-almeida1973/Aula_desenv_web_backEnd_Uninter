@@ -24,17 +24,16 @@ public class NotaEntrada {
 	private Long id;
 	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
-	@Column(nullable = false, name = "data_hora", columnDefinition = "DATETIME")
+	@Column(nullable=false, name="data_hora", columnDefinition = "DATETIME")
 	private LocalDateTime dataHora;
 	
-	@ManyToOne  //relacionamento
-	@JoinColumn(name = "fornecedor_id", nullable = false)  // chave estrangeira
+	@ManyToOne
+	@JoinColumn(name="fornecedor_id", nullable=false)
 	private Fornecedor fornecedor;
 	
 	@Transient
 	private Float total;
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -66,10 +65,4 @@ public class NotaEntrada {
 	public void setTotal(Float total) {
 		this.total = total;
 	}
-
-	
-	
-	
-	
-	
 }

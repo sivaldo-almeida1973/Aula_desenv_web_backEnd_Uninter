@@ -12,7 +12,7 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public class NotaEntradaDAO implements CRUD<NotaEntrada, Long>{
+public class NotaEntradaDAO implements CRUD<NotaEntrada, Long> {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,20 +31,15 @@ public class NotaEntradaDAO implements CRUD<NotaEntrada, Long>{
 	@Override
 	public void insere(NotaEntrada notaEntrada) {
 		em.persist(notaEntrada);
-		
 	}
 
 	@Override
 	public void atualiza(NotaEntrada notaEntrada) {
 		em.merge(notaEntrada);
-		
 	}
 
 	@Override
 	public void remove(NotaEntrada notaEntrada) {
 		em.remove(notaEntrada);
-		
 	}
-	
-//classe de acesso a dados , refe a notaEntrada
 }

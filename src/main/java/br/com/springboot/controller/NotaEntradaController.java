@@ -21,7 +21,7 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/nota-entrada")
 public class NotaEntradaController {
-	
+
 	@Autowired
 	private NotaEntradaBO notaEntradaBO;
 	
@@ -38,7 +38,6 @@ public class NotaEntradaController {
 		return new ModelAndView("/nota-entrada/formulario", model);
 	}
 	
-	//salvar no banco de dados
 	@RequestMapping(value="", method=RequestMethod.POST)
 	public String salva(@Valid @ModelAttribute NotaEntrada notaEntrada,
 			BindingResult result,
@@ -65,8 +64,6 @@ public class NotaEntradaController {
 		return new ModelAndView("/nota-entrada/lista", model);
 	}
 	
-	
-	
 	@RequestMapping(value="/{id}/item", method=RequestMethod.GET)
 	public ModelAndView produto(@PathVariable("id") Long id, ModelMap model) {
 		NotaEntradaItem nei = new NotaEntradaItem();
@@ -74,11 +71,7 @@ public class NotaEntradaController {
 		nei.setNotaEntrada(ne);
 		model.addAttribute("notaEntradaItem", nei);
 		model.addAttribute("produtos", produtoBO.lista());
-		return new  ModelAndView("nota-entrada-item/formulario", model);
-		
-		
+		return new ModelAndView("/nota-entrada-item/formulario", model);
 	}
-
-	
-
 }
+

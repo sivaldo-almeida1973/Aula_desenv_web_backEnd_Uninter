@@ -10,15 +10,14 @@ import br.com.springboot.dao.NotaEntradaDAO;
 import br.com.springboot.model.NotaEntrada;
 
 @Service
-public class NotaEntradaBO implements CRUD<NotaEntrada, Long>{
+public class NotaEntradaBO implements CRUD<NotaEntrada, Long> {
 
-	//classe de acesso a dados DAO
 	@Autowired
 	private NotaEntradaDAO notaEntradaDAO;
 	
 	@Override
 	public NotaEntrada pesquisaPeloId(Long id) {
-			return notaEntradaDAO.pesquisaPeloId(id);
+		return notaEntradaDAO.pesquisaPeloId(id);
 	}
 
 	@Override
@@ -29,19 +28,16 @@ public class NotaEntradaBO implements CRUD<NotaEntrada, Long>{
 	@Override
 	public void insere(NotaEntrada notaEntrada) {
 		notaEntradaDAO.insere(notaEntrada);
-		
 	}
 
 	@Override
 	public void atualiza(NotaEntrada notaEntrada) {
 		notaEntradaDAO.atualiza(notaEntrada);
-		
 	}
 
 	@Override
 	public void remove(NotaEntrada notaEntrada) {
 		notaEntradaDAO.remove(notaEntrada);
-		
 	}
-  //classe de servicos , refe a notaEntrada
 }
+
