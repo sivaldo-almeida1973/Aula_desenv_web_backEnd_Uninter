@@ -39,8 +39,11 @@ public class NotaEntradaItemController {
 			ModelMap model) {
 		
 		Long produtoId = notaEntradaItem.getProduto().getId();
-		
+		if ( produtoId == null) {
+			result.rejectValue("produto", "field.required");
+		}
 		//validacao do produto
+		
 		
 		//validacao duplicidade
 		
